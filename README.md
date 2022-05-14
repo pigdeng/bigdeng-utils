@@ -6,6 +6,13 @@
 <a href="https://github.com/pigdeng/bigdeng-utils.git">github</a>  
 
 
+# 推送到npm 
+npm install -g
+npm link
+npm publish
+
+
+
 
 
 
