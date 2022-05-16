@@ -9,7 +9,7 @@
 # 推送到npm 
 npm install -g
 npm link
-npm publish
+npm publish 
 
 
 
