@@ -72,9 +72,8 @@ export function blobToFile (blob, name) {
     document.body.removeChild(link)
 }
 
-/**
- * 校验只要是数字（包含正负整数，0以及正负浮点数）就返回true
- **/
+// 校验只要是数字（包含正负整数，0以及正负浮点数）就返回true
+
  export function isNumber (val) {
     var regPos = /^[0-9]+.?[0-9]*/ // 判断是否是数字。
   
@@ -86,15 +85,29 @@ export function blobToFile (blob, name) {
 }
 
 
+// // 获取浏览器参数
+// export function getQueryVariable (variable) {
+//     var query = window.location.search.substring(1)
+//     var vars = query.split('&')
+//     for (var i = 0; i < vars.length; i++) {
+//       var pair = vars[i].split('=')
+//       if (pair[0] == variable) {
+//         return pair[1]
+//       }
+//     }
+//     return false
+// }
+
+
 // 获取浏览器参数
-export function getQueryVariable (variable) {
-    var query = window.location.search.substring(1)
-    var vars = query.split('&')
-    for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split('=')
+export function getQueryVariable(variable) {
+    const query = window.location.href.split("?")[1];
+    const vars = query.split("&");
+    for (let i = 0; i < vars.length; i++) {
+      const pair = vars[i].split("=");
       if (pair[0] == variable) {
-        return pair[1]
+        return pair[1];
       }
     }
-    return false
+    return false;
 }

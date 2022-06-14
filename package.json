@@ -1,6 +1,6 @@
 {
   "name": "bigdeng-utils",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "我的javascript算法库",
   "main": "index.js",
   "scripts": {
