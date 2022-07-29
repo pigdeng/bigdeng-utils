@@ -16,29 +16,29 @@ export function deepClone (target) {
     let result
     // 如果当前需要深拷贝的是一个对象的话
     if (typeof target === 'object') {
-      // 如果是一个数组的话
-      if (Array.isArray(target)) {
-        result = [] // 将result赋值为一个数组，并且执行遍历
-        for (let i in target) {
-          // 递归克隆数组中的每一项
-          result.push(deepClone(target[i]))
+        // 如果是一个数组的话
+        if (Array.isArray(target)) {
+            result = [] // 将result赋值为一个数组，并且执行遍历
+            for (let i in target) {
+                // 递归克隆数组中的每一项
+                result.push(deepClone(target[i]))
+            }
+            // 判断如果当前的值是null的话；直接赋值为null
+        } else if (target === null) {
+            result = null
+            // 判断如果当前的值是一个RegExp对象的话，直接赋值
+        } else if (target.constructor === RegExp) {
+            result = target
+        } else {
+            // 否则是普通对象，直接for in循环，递归赋值对象的所有值
+            result = {}
+            for (let i in target) {
+                result[i] = deepClone(target[i])
+            }
         }
-        // 判断如果当前的值是null的话；直接赋值为null
-      } else if (target === null) {
-        result = null
-        // 判断如果当前的值是一个RegExp对象的话，直接赋值
-      } else if (target.constructor === RegExp) {
-        result = target
-      } else {
-        // 否则是普通对象，直接for in循环，递归赋值对象的所有值
-        result = {}
-        for (let i in target) {
-          result[i] = deepClone(target[i])
-        }
-      }
-      // 如果不是对象的话，就是基本数据类型，那么直接赋值
+        // 如果不是对象的话，就是基本数据类型，那么直接赋值
     } else {
-      result = target
+        result = target
     }
     // 返回最终结果
     return result
@@ -48,13 +48,13 @@ export function deepClone (target) {
 export function removeNull (data) {
     let newData = {}
     for (let key in data) {
-      if (
-        (data[key] &&
-          data[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '') ||
-        data[key] === 0
-      ) {
-        newData[key] = data[key]
-      }
+        if (
+            (data[key] &&
+                data[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '') ||
+            data[key] === 0
+        ) {
+            newData[key] = data[key]
+        }
     }
     return newData
 }
@@ -73,14 +73,13 @@ export function blobToFile (blob, name) {
 }
 
 // 校验只要是数字（包含正负整数，0以及正负浮点数）就返回true
-
- export function isNumber (val) {
+export function isNumber (val) {
     var regPos = /^[0-9]+.?[0-9]*/ // 判断是否是数字。
-  
+
     if (regPos.test(val)) {
-      return true
+        return true
     } else {
-      return false
+        return false
     }
 }
 
@@ -100,14 +99,42 @@ export function blobToFile (blob, name) {
 
 
 // 获取浏览器参数
-export function getQueryVariable(variable) {
+export function getQueryVariable (variable) {
+    let query = '';
+    try {
+        query = window.location.href.split("?")[1];
+    } catch (error) {
+        return false;
+    }
+    const vars = query.split("&");
+    for (let i = 0; i < vars.length; i++) {
+        const pair = vars[i].split("=");
+        if (pair[0] == variable) {
+            return pair[1];
+        }
+    }
+    return false;
+}
+
+// 获取浏览器参数 升级款
+export function getQueryVariables (variable) {
+    if (!window.location.href.includes("?")) {
+        return false;
+    }
     const query = window.location.href.split("?")[1];
     const vars = query.split("&");
     for (let i = 0; i < vars.length; i++) {
-      const pair = vars[i].split("=");
-      if (pair[0] == variable) {
-        return pair[1];
-      }
+        const pair = vars[i].split("=");
+        if (pair[0] == variable) {
+            return pair[1];
+        }
     }
     return false;
+}
+
+// 数组对象反向查找  arr:要查找的数组 key：要查找的key  value:要查找key的value
+export function reverseSearch (arr, key, value) {
+    return arr.find((i) => {
+        return i[key] === value;
+    });
 }
